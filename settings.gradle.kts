@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Web_Mobile_App_Kotlin"
+rootProject.name = "Web Mobile App Kotlin"
 include(":app")
  
