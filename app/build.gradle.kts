@@ -70,6 +70,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+    implementation("com.github.bumptech.glide:glide:4.11.0")
     implementation("com.google.firebase:firebase-bom:32.1.1")
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.onesignal:OneSignal:[4.0.0, 4.99.99]")

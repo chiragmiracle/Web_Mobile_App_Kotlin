@@ -4,5 +4,6 @@
     <color name="colorPrimary">#FF6200EE</color>
     <color name="colorPrimaryDark">#FF3700B3</color>
     <color name="black">#FF000000</color>
+    <color name="trans">#00FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

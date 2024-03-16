@@ -1,7 +1,12 @@
 package com.miracle.webmobile
 
 import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
@@ -17,7 +22,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.google.firebase.messaging.FirebaseMessaging
+import java.util.concurrent.atomic.AtomicInteger
 
 
 class MainActivity : ComponentActivity() {
@@ -35,12 +47,24 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             WebViewDemo()
             askNotificationPermission()
+            FirebaseMessaging.getInstance().subscribeToTopic("discount-offers")
+                .addOnCompleteListener { task ->
+                    showToast("Subscribed! You will get all discount offers notifications")
+                    if (!task.isSuccessful) {
+                        showToast("Failed! Try again.")
+                    }
+                }
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun askNotificationPermission() {
@@ -66,6 +90,12 @@ class MainActivity : ComponentActivity() {
                 factory = { context ->
                     WebView(context).apply {
                         settings.javaScriptEnabled = true
+                        settings.loadWithOverviewMode = true
+                        settings.useWideViewPort = true
+                        settings.builtInZoomControls = false
+                        settings.allowContentAccess = true
+                        scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
+                        isScrollbarFadingEnabled = false
                         webViewClient = WebViewClient()
                         loadUrl(PAGE_URL)
                     }
@@ -85,3 +115,4 @@ class MainActivity : ComponentActivity() {
     }
 
 }
+
