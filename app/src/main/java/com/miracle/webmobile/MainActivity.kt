@@ -83,7 +83,7 @@ class MainActivity : ComponentActivity() {
     @Preview(showBackground = true)
     @Composable
     fun WebViewDemo() {
-        val PAGE_URL = "https://www.theandroid-mania.com/"
+        val PAGE_URL = "https://www.google.com/"
 
         Surface(modifier = Modifier.fillMaxSize()) {
             AndroidView(
